@@ -1,0 +1,45 @@
+1.安裝虛擬環境(venv)
+    -->建立新目錄(資料夾)
+        -->mkdir django
+        -->cd django
+    -->創建一個新的virtualenv:打開終端機並輸入(windows)
+        -->python -m venv myvenv
+    -->啟動虛擬環境
+        -->. "c:\GitHub\Django\myvenv\bin\Activate.ps1"
+        -->當開頭出現(myvenv)及代表啟動成功
+    -->安裝 Django
+        -->pip install django
+    
+    !!!在創建的Django目錄中輸入指令!!!    
+    -->django-admin
+        -->顯示可以使用的指令
+    -->建立project
+        -->django-admin startproject <ProjectName>
+        -->or
+        -->django-admin startapp <AppName>
+        -->會自動生成類似以下的資料目錄
+        <資料夾名稱>
+        ├───manage.py 包含所有的網站設置。這是可以註冊所有創建的應用的地方，也是靜態文件，數據庫配置的地方。
+        └───<ProjectName>
+                settings.py 包含了網站中的各種配置。
+                urls.py 定義了網站url到view的映射。雖然這裡可以包含所有的url，但是更常見的做法是把應用相關的url包含在相關應用中。
+                wsgi.py 幫助Django應用和網絡服務器間的通訊。
+                __init__.py
+    -->測試runserver
+        -->python manage.py runserver
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    -->
+    
