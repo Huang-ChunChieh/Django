@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>【Day 10】Django Models - ORM - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</title>
+
+<meta name="description" content="昨天我們成功在Python Shell新增Records並把這些Records抓出來顯示在網頁上，仔細觀察取得資料表紀錄的那行程式碼，就會發現我們並不是用SQL去撈資料而是用資料表物件(Model O..."/>
+<meta name="keywords" content="iT邦幫忙,iThome">
+<meta name="author" content="iThome">
+<meta property="og:site_name" content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"/>
+<meta property="og:url" content="https://ithelp.ithome.com.tw/articles/10297644"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="【Day 10】Django Models 番外篇(1) – ORM - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"/>
+<meta property="og:image" content="https://i.imgur.com/5FF8SDz.png"/>
+<meta property="og:description" content="昨天我們成功在Python Shell新增Records並把這些Records抓出來顯示在網頁上，仔細觀察取得資料表紀錄的那行程式碼，就會發現我們並不是用SQL去撈資料而是用資料表物件(Model O..."/>
+<meta property="fb:app_id" content="137875859607921" />
+
+<link rel="apple-touch-icon" sizes="57x57" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json">
+<link rel="mask-icon" href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/bootstrap.min.css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/sweetalert.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css">
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/style.css?202008271142">
+<!-- highlight -->
+<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/railscasts.css">
+<!-- end -->
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!--messenger css-->
+    </head>
+
+<body>
+    <div class="header">
+    <div class="a970" align="center">
+        <script src="https://itadapi.ithome.com.tw/media/serve?type=B5&channel=ithome_index&encoding=Utf8"></script>
+    </div>
+    <div class="header__inner clearfix">
+                <div class="header__promote">
+            <div class="a12word pull-right">
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T2&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T3&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+                <div class="a12word__box">
+                    <script type="text/javascript" src="https://itadapi.ithome.com.tw/media/serve?type=T4&channel=ithome_forum&encoding=Utf8"> </script>
+                </div>
+            </div>
+
+            <div class="a970 pull-right">
+                <script src="https://itadapi.ithome.com.tw/media/serve?type=B1&channel=ithome_forum&encoding=Utf8"></script>
+            </div>
+        </div>
+    </div>
+    <div class="menu__mask"></div>
+</div>
+        <div class="container index-top">
+        <div class="row">
+        <div class="qa-panel clearfix">
+        <div class="ir-article__days ir-article__days--web ">
+        <div class="ir-article__days-word">DAY <span class="ir-article__days-num">10</span></div>
+        </div>               
+            <div class="qa-panel__side">
+                <div class="qa-side">
+                    <div class="likeGroup">
+        </div>
+                </div>  
+            </div>
+            <div class="qa-panel__content">
+                <div class="qa-header">
+                    <h2 class="qa-header__title ir-article__title">
+                                                【Day 10】Django Models 番外篇(1) – ORM
+                    </h2>
+                </div>
+                <div class="qa-markdown">
+                    <div class="markdown">
+                        <div class="markdown__style">
+                        <p>昨天我們成功在<code>Python Shell</code>新增<code>Records</code>並把這些<code>Records</code>抓出來顯示在網頁上，仔細觀察取得資料表紀錄的那行程式碼，就會發現我們並不是用<code>SQL</code>去撈資料而是用資料表物件(<code>Model Object</code>)自帶的方法去取得資料。</p>
+<pre><code>#昨天的程式碼
+from django.http import HttpResponse
+from django.template import loader
+from .models import Members
+
+def index(request):
+  #取得Members資料表上所有的Records
+  mymembers = Members.objects.all().values() #取得資料表紀錄
+  output = &quot;&quot;
+  for x in mymembers:
+    output += x[&quot;firstname&quot;]
+  return HttpResponse(output)
+</code></pre>
+<p>那為什麼不是用<code>SQL</code>而是靠資料表物件(<code>Model Object</code>)去操作資料呢?<br />
+因為<code>Django</code>的資料庫操作靠的是<code>ORM</code>這個技術。</p>
+<h2>ORM</h2>
+<p><img src="https://i.imgur.com/5FF8SDz.png" alt="" /><br />
+(<a href="https://medium.com/pragmatech/orm-for-python-b63cfbc39e7f" target="_blank" rel="noreferrer noopener">圖片來源</a>)</p>
+<p><code>ORM</code>是<code>Object Relational Mapping</code>的簡寫，中文翻譯是<strong>物件關聯對映</strong>，主要就是將資料庫的資料與物件(<code>Object</code>)相互對應，再實際一點的說法，就是把<code>Django</code>資料庫裡面的資料表(<code>Model</code>)以物件(<code>Object</code>)的型態召喚出來，接著就可以直接用這個物件做資料的<code>CRUD</code>，而不用寫<code>SQL</code>。</p>
+<h3>ORM 的優點</h3>
+<ol>
+<li>對於熟悉物件操作的人來說，非常方便</li>
+<li>不會因為資料庫不同，而有原生<code>SQL</code>語言轉換的困擾</li>
+<li>可以防止<code>SQL Injection</code>的問題</li>
+<li>程式碼相對簡潔，因為不會有複雜的<code>SQL</code>出現</li>
+</ol>
+<blockquote>
+<p>SQL Injection : 資料庫收到惡意使用者所輸入的 SQL 指令，在未驗證的情況下就逕自執行，導致惡意使用者可以取得最高權限，進而對資料庫造成未知破壞，其中包括竊取、修改、刪除資料等等。</p>
+</blockquote>
+<h3>ORM 的缺點</h3>
+<ol>
+<li>
+<code>ORM</code>相對<code>SQL</code>是一個新的觀念，會需要花時間理解不同方法的意義</li>
+<li>因為是先將資料庫資料對應成物件才開始操作，所以在效能上會有點不好</li>
+<li>需要複雜的<code>SQL</code>才能做到的事，用<code>ORM</code>會很難做到一樣的事，導致最後還是要寫SQL</li>
+</ol>
+<p>綜合<code>ORM</code>的優點與缺點，可以發現<code>ORM</code>雖然使用上很簡單，但還是有它的侷限性，所以還是要學點<code>SQL</code>會比較好解決複雜的問題。</p>
