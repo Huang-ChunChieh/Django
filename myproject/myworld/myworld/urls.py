@@ -19,5 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     # 讓myworld可以認出包括members/和其以下所有的路徑，例如: members/signin，一定要添加這行才能從根目錄瀏覽到members\下的網頁
-    path("members/", include('members.urls'))
+    path("", include('members.urls'))
 ]

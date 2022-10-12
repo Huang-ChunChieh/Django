@@ -1,7 +1,8 @@
 #from re import template
 #from unittest import loader#
 #from django.shortcuts import render
-from django.http import HttpResponse  # import 需要的套件
+from django.http import HttpResponse
+from django.shortcuts import render  # import 需要的套件
 from django.template import loader  # 用來載入template的套件
 from .models import Members  # 把Members這張資料表 import 進來
 
@@ -15,3 +16,15 @@ def index(request):
     for x in mymembers:  # 使用For迴圈逐一將Members上每筆紀錄的firstname欄位值和output串接在一起
         output += x["firstname"]
     return HttpResponse(output)  # 將這些字串回傳到瀏覽器並顯示在畫面上
+
+
+def home(request):
+    return render(request, "home.html")  # 回傳template
+
+
+def day_ten(request):
+    return render(request, "day10.html")  # 回傳template
+
+
+def day_eleven(request):
+    return render(request, "day11.html")  # 回傳template

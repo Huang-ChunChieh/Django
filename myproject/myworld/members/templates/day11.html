@@ -1,184 +1,354 @@
+{% include 'navbar.html' %} {% load static %}
 <!DOCTYPE html>
 <html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      【Day 11】Django Models 番外篇(2) – Migrations - iT
+      邦幫忙::一起幫忙解決難題，拯救 IT 人的一天
+    </title>
 
+    <meta
+      name="description"
+      content="每個寫過程式的人，或多或少都接觸過Git，它是一個非常好用的版本控制工具，而在Django的資料庫，其實也存在版本控制的相關指令，接下來就讓我們一起看看吧! makemigrations 剛建好1個D..."
+    />
+    <meta name="keywords" content="iT邦幫忙,iThome" />
+    <meta name="author" content="iThome" />
+    <meta
+      property="og:site_name"
+      content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"
+    />
+    <meta
+      property="og:url"
+      content="https://ithelp.ithome.com.tw/articles/10297977"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="【Day 11】Django Models 番外篇(2) – Migrations - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"
+    />
+    <meta property="og:image" content="https://i.imgur.com/VixUVaQ.png" />
+    <meta
+      property="og:description"
+      content="每個寫過程式的人，或多或少都接觸過Git，它是一個非常好用的版本控制工具，而在Django的資料庫，其實也存在版本控制的相關指令，接下來就讓我們一起看看吧! makemigrations 剛建好1個D..."
+    />
+    <meta property="fb:app_id" content="137875859607921" />
 
-<title>【Day 11】Django Models 番外篇(2) – Migrations - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png"
+      sizes="192x192"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="manifest"
+      href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json"
+    />
+    <link
+      rel="mask-icon"
+      href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta
+      name="msapplication-TileImage"
+      content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
 
-<meta name="description" content="每個寫過程式的人，或多或少都接觸過Git，它是一個非常好用的版本控制工具，而在Django的資料庫，其實也存在版本控制的相關指令，接下來就讓我們一起看看吧! makemigrations 剛建好1個D..."/>
-<meta name="keywords" content="iT邦幫忙,iThome">
-<meta name="author" content="iThome">
-<meta property="og:site_name" content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"/>
-<meta property="og:url" content="https://ithelp.ithome.com.tw/articles/10297977"/>
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="【Day 11】Django Models 番外篇(2) – Migrations - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"/>
-<meta property="og:image" content="https://i.imgur.com/VixUVaQ.png"/>
-<meta property="og:description" content="每個寫過程式的人，或多或少都接觸過Git，它是一個非常好用的版本控制工具，而在Django的資料庫，其實也存在版本控制的相關指令，接下來就讓我們一起看看吧! makemigrations 剛建好1個D..."/>
-<meta property="fb:app_id" content="137875859607921" />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/sweetalert.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css"
+    />
+    <link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css" />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/style.css?202008271142"
+    />
+    <!-- highlight -->
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/railscasts.css"
+    />
+    <!-- end -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--messenger css-->
+  </head>
 
-<link rel="apple-touch-icon" sizes="57x57" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png">
-<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png" sizes="192x192">
-<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json">
-<link rel="mask-icon" href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="msapplication-TileImage" content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png">
-<meta name="theme-color" content="#ffffff">
-
-<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/bootstrap.min.css">
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
-<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/sweetalert.css">
-<link rel="stylesheet" href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css">
-<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css">
-<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/style.css?202008271142">
-<!-- highlight -->
-<link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/railscasts.css">
-<!-- end -->
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-<!--messenger css-->
-    </head>
-
-<body>
+  <body>
     <div class="header">
-    <div class="menu__mask"></div>
-</div>
-        <div class="container index-top">
-        <div class="row">        
+      <div class="menu__mask"></div>
+    </div>
+    <div class="container index-top">
+      <div class="row">
         <div class="qa-panel clearfix">
-                                                <div class="ir-article__days ir-article__days--web ">
-                        <div class="ir-article__days-word">DAY <span class="ir-article__days-num">
-                                                              11
-                                                      </span></div>
-                    </div>                
+          <div class="ir-article__days ir-article__days--web">
+            <div class="ir-article__days-word">
+              DAY <span class="ir-article__days-num"> 11 </span>
             </div>
-            <div class="qa-panel__content">
-                <div class="qa-header">            
-                    <h2 class="qa-header__title ir-article__title">
-                                                【Day 11】Django Models 番外篇(2) – Migrations
-                    </h2>
-                    <div class="ir-article-info">
-                    </div>
+          </div>
+        </div>
+        <div class="qa-panel__content">
+          <div class="qa-header">
+            <h2 class="qa-header__title ir-article__title">
+              【Day 11】Django Models 番外篇(2) – Migrations
+            </h2>
+            <div class="ir-article-info"></div>
+          </div>
 
-                </div>
-                
-                <div class="qa-markdown">
-                    <div class="markdown">
-                        <div class="markdown__style">
-                                                            <p>每個寫過程式的人，或多或少都接觸過<code>Git</code>，它是一個非常好用的版本控制工具，而在<code>Django</code>的資料庫，其實也存在版本控制的相關指令，接下來就讓我們一起看看吧!</p>
-<h2>makemigrations</h2>
-<p>剛建好1個<code>Django App</code>或對<code>models.py</code>進行修改，都會需要執行這個指令，執行後它會自動與現行資料庫的版本比較差異，接著產生1個<code>migrations</code>的檔案，代表要變更的內容。對照到<code>Git</code>的話，就有點像是加入索引，只是這邊多產生1個<code>migrations</code>檔案。</p>
-<h3>範例指令</h3>
-<pre><code>python manage.py makemigrations your_app_label
+          <div class="qa-markdown">
+            <div class="markdown">
+              <div class="markdown__style">
+                <p>
+                  每個寫過程式的人，或多或少都接觸過<code>Git</code>，它是一個非常好用的版本控制工具，而在<code>Django</code>的資料庫，其實也存在版本控制的相關指令，接下來就讓我們一起看看吧!
+                </p>
+                <h2>makemigrations</h2>
+                <p>
+                  剛建好1個<code>Django App</code
+                  >或對<code>models.py</code>進行修改，都會需要執行這個指令，執行後它會自動與現行資料庫的版本比較差異，接著產生1個<code>migrations</code>的檔案，代表要變更的內容。對照到<code>Git</code>的話，就有點像是加入索引，只是這邊多產生1個<code>migrations</code>檔案。
+                </p>
+                <h3>範例指令</h3>
+                <pre><code>python manage.py makemigrations your_app_label
 </code></pre>
-<blockquote>
-<p><code>your_app_label</code>就是<code>App</code>的名稱。</p>
-</blockquote>
-<h3>實際操作</h3>
-<ol>
-<li>
-<p>在<code>members/models.py</code>新增一個名為<code>Members2</code>的<code>model</code></p>
-<p><img src="https://i.imgur.com/VixUVaQ.png" alt="" /></p>
-</li>
-<li>
-<p>在<code>python venv</code>輸入<code>python manage.py makemigrations members</code></p>
-<p><img src="https://i.imgur.com/mMPZ5H1.png" alt="" /></p>
-</li>
-<li>
-<p>在<code>member/migrations</code>下面出現1個新檔案<code>0002_members2.py</code></p>
-<p><img src="https://i.imgur.com/v5kvK8D.png" alt="" /></p>
-<p><code>0002_members2.py</code>裡面放的是我們要對資料庫變更的內容 :</p>
-<p>(可以很清楚的看到要去Create <code>Members2</code> 這個 Model)<br />
-<img src="https://i.imgur.com/kncqSck.png" alt="" /></p>
-</li>
-</ol>
-<blockquote>
-<p>注意! 到這邊都還沒有實際在資料庫把資料表建起來喔!</p>
-</blockquote>
-<h2>sqlmigrate</h2>
-<p>如果對<code>makemigrations</code>之後，即將要執行的<code>SQL</code>感到好奇的話，可以藉由<code>sqlmigrate</code>來查看它們。</p>
-<h3>範例指令</h3>
-<pre><code>python manage.py sqlmigrate app_label migration_name
+                <blockquote>
+                  <p><code>your_app_label</code>就是<code>App</code>的名稱。</p>
+                </blockquote>
+                <h3>實際操作</h3>
+                <ol>
+                  <li>
+                    <p>
+                      在<code>members/models.py</code>新增一個名為<code>Members2</code>的<code
+                        >model</code
+                      >
+                    </p>
+                    <p><img src="https://i.imgur.com/VixUVaQ.png" alt="" /></p>
+                  </li>
+                  <li>
+                    <p>
+                      在<code>python venv</code>輸入<code
+                        >python manage.py makemigrations members</code
+                      >
+                    </p>
+                    <p><img src="https://i.imgur.com/mMPZ5H1.png" alt="" /></p>
+                  </li>
+                  <li>
+                    <p>
+                      在<code>member/migrations</code>下面出現1個新檔案<code
+                        >0002_members2.py</code
+                      >
+                    </p>
+                    <p><img src="https://i.imgur.com/v5kvK8D.png" alt="" /></p>
+                    <p>
+                      <code>0002_members2.py</code
+                      >裡面放的是我們要對資料庫變更的內容 :
+                    </p>
+                    <p>
+                      (可以很清楚的看到要去Create <code>Members2</code> 這個
+                      Model)<br />
+                      <img src="https://i.imgur.com/kncqSck.png" alt="" />
+                    </p>
+                  </li>
+                </ol>
+                <blockquote>
+                  <p>注意! 到這邊都還沒有實際在資料庫把資料表建起來喔!</p>
+                </blockquote>
+                <h2>sqlmigrate</h2>
+                <p>
+                  如果對<code>makemigrations</code>之後，即將要執行的<code>SQL</code>感到好奇的話，可以藉由<code>sqlmigrate</code>來查看它們。
+                </p>
+                <h3>範例指令</h3>
+                <pre><code>python manage.py sqlmigrate app_label migration_name
 </code></pre>
-<blockquote>
-<p><code>migration_name</code>就是<code>0002_members2.py</code>前面的數字，也就是<code>0002</code>。</p>
-</blockquote>
-<h3>實際操作</h3>
-<ol>
-<li>
-<p>在<code>python venv</code>輸入<code>python manage.py sqlmigrate members 0002</code></p>
-</li>
-<li>
-<p>接著就會看到將要執行的<code>SQL</code>原始碼</p>
-<p><img src="https://i.imgur.com/kUik23R.png" alt="" /></p>
-</li>
-</ol>
-<blockquote>
-<p>注意! 到這邊都還沒有實際在資料庫把資料表建起來喔!</p>
-</blockquote>
-<h2>migrate</h2>
-<p>將對<code>models</code>的變更實際套用到資料庫上，也就是執行剛剛用<code>sqlmigrate</code>看到的<code>SQL</code>原始碼。(類似<code>Git</code>提交<code>commit</code>)</p>
-<h3>範例指令</h3>
-<pre><code>python manage.py migrate app_label
+                <blockquote>
+                  <p>
+                    <code>migration_name</code
+                    >就是<code>0002_members2.py</code>前面的數字，也就是<code>0002</code>。
+                  </p>
+                </blockquote>
+                <h3>實際操作</h3>
+                <ol>
+                  <li>
+                    <p>
+                      在<code>python venv</code>輸入<code
+                        >python manage.py sqlmigrate members 0002</code
+                      >
+                    </p>
+                  </li>
+                  <li>
+                    <p>接著就會看到將要執行的<code>SQL</code>原始碼</p>
+                    <p><img src="https://i.imgur.com/kUik23R.png" alt="" /></p>
+                  </li>
+                </ol>
+                <blockquote>
+                  <p>注意! 到這邊都還沒有實際在資料庫把資料表建起來喔!</p>
+                </blockquote>
+                <h2>migrate</h2>
+                <p>
+                  將對<code>models</code>的變更實際套用到資料庫上，也就是執行剛剛用<code>sqlmigrate</code>看到的<code>SQL</code>原始碼。(類似<code>Git</code>提交<code>commit</code>)
+                </p>
+                <h3>範例指令</h3>
+                <pre><code>python manage.py migrate app_label
 </code></pre>
-<h3>實際操作</h3>
-<ol>
-<li>
-<p>在<code>python venv</code>輸入<code>python manage.py migrate members</code></p>
-<p><img src="https://i.imgur.com/FNFKcN1.png" alt="" /></p>
-</li>
-<li>
-<p>成功在資料庫建立1張新的資料表<code>Members2</code></p>
-</li>
-</ol>
-<h3>Migrate 時光機</h3>
-<p>如果後悔了，想回到之前還沒建立資料表<code>Members2</code>的時候該怎麼辦?<br />
-我們只要回到<code>Migration</code>代號比<code>0002</code>還要小的<code>0001</code>就好囉!<br />
-要執行的指令跟剛剛很像，只是要加上<code>Migration</code>的代號，以這邊的例子來說就是<code>python manage.py migrate members 0001</code>。</p>
-<p><img src="https://i.imgur.com/hkmvH8b.png" alt="" /></p>
-<p>這樣就成功搭乘時光機回到過去囉!</p>
-<h2>showmigrations</h2>
-<p>想要看之前幾次對資料庫的變更紀錄和<code>App</code>目前所在的<code>Migration</code>，可以透過<code>showmigrations</code>做查詢。</p>
-<h3>範例指令</h3>
-<pre><code>python manage.py showmigrations app_label
+                <h3>實際操作</h3>
+                <ol>
+                  <li>
+                    <p>
+                      在<code>python venv</code>輸入<code
+                        >python manage.py migrate members</code
+                      >
+                    </p>
+                    <p><img src="https://i.imgur.com/FNFKcN1.png" alt="" /></p>
+                  </li>
+                  <li>
+                    <p>成功在資料庫建立1張新的資料表<code>Members2</code></p>
+                  </li>
+                </ol>
+                <h3>Migrate 時光機</h3>
+                <p>
+                  如果後悔了，想回到之前還沒建立資料表<code>Members2</code>的時候該怎麼辦?<br />
+                  我們只要回到<code>Migration</code>代號比<code>0002</code>還要小的<code>0001</code>就好囉!<br />
+                  要執行的指令跟剛剛很像，只是要加上<code>Migration</code>的代號，以這邊的例子來說就是<code
+                    >python manage.py migrate members 0001</code
+                  >。
+                </p>
+                <p><img src="https://i.imgur.com/hkmvH8b.png" alt="" /></p>
+                <p>這樣就成功搭乘時光機回到過去囉!</p>
+                <h2>showmigrations</h2>
+                <p>
+                  想要看之前幾次對資料庫的變更紀錄和<code>App</code>目前所在的<code>Migration</code>，可以透過<code>showmigrations</code>做查詢。
+                </p>
+                <h3>範例指令</h3>
+                <pre><code>python manage.py showmigrations app_label
 </code></pre>
-<h3>實際操作</h3>
-<ol>
-<li>
-<p>在<code>python venv</code>輸入<code>python manage.py showmigrations members</code></p>
-<p><img src="https://i.imgur.com/zdYBs86.png" alt="" /></p>
-<p>從上圖可以發現<code>members</code>這個App的<code>models</code>版本目前處於代號<code>0001</code>這個<code>Migration</code>(打叉的地方)並且還有另一個未套用的<code>Migration</code>代號<code>0002</code>。</p>
-</li>
-</ol>
-<h2>小結</h2>
-<p>看完上面4個指令，是不是覺得<code>Django</code>的<code>Migrations</code>跟<code>Git</code>非常像呢?<br />
-我個人覺得用過<code>Git</code>再接觸到<code>Django</code>的<code>Migrations</code>會有滿滿的親切感。<br />
-當然上面對於<code>Migrations</code>的說明只是總體的冰山一角，剩餘的內容就仰賴感興趣的人自行去細細品味囉!</p>
-<blockquote>
-<p>在正式接續Day 09的內容前，容我再花一篇文章的時間，簡單且快速的介紹<code>Django Template Tags &amp; Variables</code>，相信對學習之後的內容會很有幫助!</p>
-</blockquote>
- <br/>
-                                                    </div>
-                    </div>
-                </div>
+                <h3>實際操作</h3>
+                <ol>
+                  <li>
+                    <p>
+                      在<code>python venv</code>輸入<code
+                        >python manage.py showmigrations members</code
+                      >
+                    </p>
+                    <p><img src="https://i.imgur.com/zdYBs86.png" alt="" /></p>
+                    <p>
+                      從上圖可以發現<code>members</code>這個App的<code>models</code>版本目前處於代號<code>0001</code>這個<code>Migration</code>(打叉的地方)並且還有另一個未套用的<code>Migration</code>代號<code>0002</code>。
+                    </p>
+                  </li>
+                </ol>
+                <h2>小結</h2>
+                <p>
+                  看完上面4個指令，是不是覺得<code>Django</code>的<code>Migrations</code>跟<code>Git</code>非常像呢?<br />
+                  我個人覺得用過<code>Git</code>再接觸到<code>Django</code>的<code>Migrations</code>會有滿滿的親切感。<br />
+                  當然上面對於<code>Migrations</code>的說明只是總體的冰山一角，剩餘的內容就仰賴感興趣的人自行去細細品味囉!
+                </p>
+                <blockquote>
+                  <p>
+                    在正式接續Day
+                    09的內容前，容我再花一篇文章的時間，簡單且快速的介紹<code
+                      >Django Template Tags &amp; Variables</code
+                    >，相信對學習之後的內容會很有幫助!
+                  </p>
+                </blockquote>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
