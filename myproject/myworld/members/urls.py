@@ -7,6 +7,8 @@ urlpatterns = [
     path("index/add/", views.add, name='add'),
     # 新增到members/add的路徑，當收到訪問者訪問該路徑的請求則以views.py的add方法處理和回應。
     # 若有必要在views或templates使用到這個路徑，則可用add代稱。
+    path('index/add/addrecord/', views.addrecord, name='addrecord'),
+    # 設定到index/add/addrecord的路徑，以members/views.py的addrecord處理請求並給定路徑別名addrecord
     path('index/', views.index, name='index'),
     path('day10/', views.day_ten, name='day_ten'),
     path('day11/', views.day_eleven, name='day_eleven'),
