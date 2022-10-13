@@ -1,0 +1,37 @@
+##Template Tags
+在Django的Templates(.html)裡可以藉由Template Tags的幫忙
+讓我們撰寫如同python一般的程式邏輯，包括常見的If判斷、For迴圈、邏輯運算、建立變數等等
+而每個Template Tag都是以{% ... %}的形式出現。
+
+##if-else 的例子
+    {% if greeting == 1 %}
+    <h1>Hello</h1>
+    {% else %}
+    <h1>Bye</h1>
+    {% endif %}
+{% endif %}: 結束if-else判斷的程式區塊
+
+##for-loop 的例子
+依序將mymembers裡面的物件取出放到x，接著取出該物件的firstname變數值。
+    <ul>
+    {% for x in mymembers %}
+        <li>{{ x.firstname }}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}: 同上，結束for-loop的程式區塊
+
+
+##Template Variables
+在Django的Templates(.html)裡面，我們還可以在html標籤之間，插入需要的變數，讓這些變數能跟著一起顯示在畫面上。
+而每個Template Variable都是以{{ ... }}的形式出現。
+
+##直接在html標籤間插入變數
+<h1>Hello {{ firstname }}, how are you?</h1>
+if firstname = Tim  -->  <h1>Hello Tim, how are you?</h1>
+
+##建立變數後再插入html標籤
+{% with firstname="Tobias" %}
+<h1>Hello {{ firstname }}, how are you?</h1>
+{% endwith %}
+(ps. 別忘記要加上{% endwith %}，W3Schools網站教學裡面沒有放!)
+透過Template Tag建立名為firstname的變數並給定值為Tobias，實際效果相當於<h1>Hello Tobias, how are you?</h1>。
