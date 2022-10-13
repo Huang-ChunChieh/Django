@@ -1,6 +1,3 @@
-#from re import template
-#from unittest import loader#
-#from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render  # import 需要的套件
 from django.template import loader  # 用來載入template的套件
@@ -19,6 +16,12 @@ def index(request):
     }  # 3.建立名為context的變數，然後以Dict的Key-Value形式，放進變數mymembers
     return HttpResponse(template.render(context, request))
     # 4.把攜帶著資料表紀錄資料的context傳到template裡面，最後以template回應請求並顯示在瀏覽器的視窗畫面上
+
+
+def add(request):
+    template = loader.get_template('add.html')  # 1.載入製作好的表單(Template)
+    return HttpResponse(template.render({}, request))
+    # 2.把表單回應傳送到訪問者的瀏覽器並顯示出來，因為不需要送資料到表單，所以在方法內傳入{}(空的context)。
 
 
 def home(request):

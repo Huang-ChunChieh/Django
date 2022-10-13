@@ -4,6 +4,9 @@ from . import views
 #urlpatterns: list裡面放的是members這個App下面所有網頁的路徑
 urlpatterns = [
     path('', views.home, name='home'),
+    path("index/add/", views.add, name='add'),
+    # 新增到members/add的路徑，當收到訪問者訪問該路徑的請求則以views.py的add方法處理和回應。
+    # 若有必要在views或templates使用到這個路徑，則可用add代稱。
     path('index/', views.index, name='index'),
     path('day10/', views.day_ten, name='day_ten'),
     path('day11/', views.day_eleven, name='day_eleven'),
