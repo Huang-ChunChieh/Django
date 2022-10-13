@@ -1,0 +1,28 @@
+<h1>Members</h1>
+
+<table border="1">
+  {% for x in mymembers %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!--
+{% for x in mymembers %}
+    mymembers就是context裡面的Key，而實際上取得的Value則是QuerySet，接著用For迴圈把QuerySet裡面的Record逐一拿出來放到變數x
+
+{{ x.id }}
+    取出該筆紀錄的id值
+
+{{ x.firstname }}
+    取出該筆紀錄的firstname值
+
+{{ x.lastname }}
+    取出該筆紀錄的lastname值
+
+{% endfor %}
+    結束For迴圈區塊
+-->

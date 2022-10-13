@@ -11,11 +11,14 @@ from .models import Members  # 把Members這張資料表 import 進來
 
 def index(request):
     mymembers = Members.objects.all().values()
-    # 建立變數mymembers存放Members上的所有紀錄，這些紀錄會被包在一個List裡面被回傳
-    output = ""  # output
-    for x in mymembers:  # 使用For迴圈逐一將Members上每筆紀錄的firstname欄位值和output串接在一起
-        output += x["firstname"]
-    return HttpResponse(output)  # 將這些字串回傳到瀏覽器並顯示在畫面上
+    # 1.將Members資料表的紀錄(Reoord)取出來放到mymembers裡面
+    template = loader.get_template('index.html')
+    # 2.載入index.html這個Template並放到同名變數template裡面
+    context = {
+        'mymembers': mymembers,
+    }  # 3.建立名為context的變數，然後以Dict的Key-Value形式，放進變數mymembers
+    return HttpResponse(template.render(context, request))
+    # 4.把攜帶著資料表紀錄資料的context傳到template裡面，最後以template回應請求並顯示在瀏覽器的視窗畫面上
 
 
 def home(request):
