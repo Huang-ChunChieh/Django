@@ -1,0 +1,305 @@
+{% include 'navbar.html' %} {% load static %}
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>
+      【Day 16】Django Template Tags 番外篇 – CSRF Token - iT
+      邦幫忙::一起幫忙解決難題，拯救 IT 人的一天
+    </title>
+
+    <meta
+      name="description"
+      content="還記得我們在前面表單的原始碼出現的{% csrf_token %}嗎? 今天會來稍微介紹它是用來做什麼的? 沒有它會發生什麼?它解決了什麼問題? CSRF ? CSRF Token ? CSRF 它的..."
+    />
+    <meta name="keywords" content="iT邦幫忙,iThome" />
+    <meta name="author" content="iThome" />
+    <meta
+      property="og:site_name"
+      content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"
+    />
+    <meta
+      property="og:url"
+      content="https://ithelp.ithome.com.tw/articles/10301336"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="【Day 16】Django Template Tags 番外篇 – CSRF Token  - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"
+    />
+    <meta property="og:image" content="https://i.imgur.com/aI9J1GS.png" />
+    <meta
+      property="og:description"
+      content="還記得我們在前面表單的原始碼出現的{% csrf_token %}嗎? 今天會來稍微介紹它是用來做什麼的? 沒有它會發生什麼?它解決了什麼問題? CSRF ? CSRF Token ? CSRF 它的..."
+    />
+    <meta property="fb:app_id" content="137875859607921" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png"
+      sizes="192x192"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="manifest"
+      href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json"
+    />
+    <link
+      rel="mask-icon"
+      href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta
+      name="msapplication-TileImage"
+      content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/sweetalert.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css"
+    />
+    <link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css" />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/style.css?202008271142"
+    />
+    <!-- highlight -->
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/railscasts.css"
+    />
+    <!-- end -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--messenger css-->
+  </head>
+
+  <body>
+            <div class="qa-panel clearfix">
+              <div class="ir-article__days ir-article__days--web">
+                <div class="ir-article__days-word">
+                  DAY <span class="ir-article__days-num"> 16 </span>
+                </div>
+              </div>
+
+              <div class="qa-panel__side">
+                <div class="qa-side">
+                  <div class="likeGroup">
+                  <div class="collection qa-collection">
+                  </div>
+                </div>
+              </div>
+              <div class="qa-panel__content">
+                <div class="qa-header">
+                  <h2 class="qa-header__title ir-article__title">
+                    【Day 16】Django Template Tags 番外篇 – CSRF Token
+                  </h2>
+                <div class="qa-markdown">
+                  <div class="markdown">
+                    <div class="markdown__style">
+                      <p>
+                        還記得我們在前面表單的原始碼出現的<code
+                          >{% csrf_token %}</code
+                        >嗎? 今天會來稍微介紹它是用來做什麼的?
+                        沒有它會發生什麼?它解決了什麼問題?
+                      </p>
+                      <h1>CSRF ? CSRF Token ?</h1>
+                      <h2>CSRF</h2>
+                      <p>
+                        它的全名是<code>Cross Site Request Forgery</code
+                        >，中文名稱是<code>跨站請求偽造</code>，是一種常見的網路攻擊手段。該攻擊手段利用的是使用者對於瀏覽器的信任，使用者登入網路應用程式通常採用<code>cookie</code>或<code>session</code>作為身分驗證，而瀏覽器則將這些身分驗證資訊存起來一段時間，保證在這段時間內，使用者可以輕鬆使用網路應用程式的各項功能而無須再驗證身分。
+                      </p>
+                      <p>這樣聽起來還挺不錯的吧! 那問題又是出在哪呢?</p>
+                      <p>
+                        前面有說過<code>CSRF</code>攻擊能成功靠的是使用者對於瀏覽器的信任，因為身分驗證資訊被瀏覽器記住，所以也就代表瀏覽器後續發出的各種請求都代表<code>使用者本人</code>，這就產生很大的問題，即存在瀏覽器在非使用者自願的情況下，在其他網站對網路應用程式發出請求的可能性。(網路應用程式只認瀏覽器有的身分資訊，它不過問使用者意願)
+                      </p>
+                      <p>
+                        舉一個簡單的<code>CSRF</code>攻擊例子 :<br />
+                        假設網站刪除使用者資料操作的<code>URL</code>位址是<code>https://demo.example.com/members/delete/1</code>。<br />
+                        那想透過<code>CSRF</code>手段進行攻擊的人可以怎麼做?<br />
+                        相對簡單的作法是在另一個使用者會進入的網站嵌入這段原始碼:
+                        <code
+                          >&lt;img
+                          src=&quot;https://demo.example.com/members/delete/1&quot;
+                          /&gt;</code
+                        >。<br />
+                        如果使用者剛好存取到這個惡意網站，而且他的身分驗證資訊又放在瀏覽器還沒過期，那麼他回過頭來就會發現自己在網站上有筆資料不見了。
+                      </p>
+                      <p>
+                        <img
+                          src="https://i.imgur.com/aI9J1GS.png"
+                          alt=""
+                        /><br />
+                        (<a
+                          href="https://eleni.blog/2019/09/15/csrf-tokens-and-symfony/"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          >圖片來源</a
+                        >)
+                      </p>
+                      <p>
+                        透過 CSRF
+                        發動攻擊的人不需要竊取使用者的個人資訊，只要利用使用者對瀏覽器使用感到方便的心態，默默等待機會去誘發瀏覽器發出對特定
+                        URL 位址的請求即可。後面的 CSRF Token 算是應 CSRF
+                        攻擊而生的其中一種預防方法。
+                      </p>
+                      <h2>CSRF Token</h2>
+                      <p>
+                        <code>CSRF Token</code
+                        >的簡單概念是既然不知道發出請求的是不是攻擊者，那試著產生1個只有使用者在同網站送出請求才會有的序號，而當攻擊者想在其他網站藉由嵌入原始碼送出刪除資料的請求，此時送出的請求並不會有這組序號，這樣就可以很輕鬆的認出誰是攻擊者。
+                      </p>
+                      <p>
+                        <code>CSRF Token</code
+                        >實際在<code>Django</code>表單應用的例子:
+                      </p>
+                      <p>
+                        在表單裡面插入<code>{% csrf_token %}</code><br />
+                        <img src="https://i.imgur.com/vaC4eqL.png" alt="" />
+                      </p>
+                      <p>
+                        <code>{% csrf_token %}</code
+                        >會產生一組隱藏欄位也就是<code>CSRF Token</code><br />
+                        <img src="https://i.imgur.com/l1nuw9t.png" alt="" />
+                      </p>
+                      <p>
+                        提交表單所產生的<code>request</code>會連同這組<code
+                          >CSRF Token</code
+                        >被送出去，而<code>Django</code>應用程式要做的就是確認這組<code
+                          >CSRF Token</code
+                        >的存在，去驗證修改資料的請求是否來自同個網站。
+                      </p>
+                      <p>但這樣就沒問題了嗎? 當然有問題。</p>
+                      <p>
+                        有一種攻擊手段叫做中間人攻擊（Man-in-the-middle
+                        attack，MITM），該攻擊手段試著從中間插入使用者傳送<code>request</code>到後端
+                        Server 的聯絡管道，當使用者確認資料無誤，將資料送出到
+                        Server，攻擊者可以在這個過程中，試著攔截使用者送出的<code>request</code>，如果成功攔截，就會導致<code
+                          >CSRF Token</code
+                        >的外流，讓它失去原本的作用，而要怎麼預防攔截就又是另一個故事了。
+                      </p>
+                      <p>
+                        <img
+                          src="https://i.imgur.com/Fdl83Jt.png"
+                          alt=""
+                        /><br />
+                        (<a
+                          href="https://www.cnblogs.com/yudongdong/p/14775079.html"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          >圖片來源</a
+                        >)
+                      </p>
+                      <blockquote>
+                        <p>
+                          番外篇到此結束。明天會接續Day
+                          15的內容，往下介紹如何在網頁上刪除資料表的紀錄(Record)。
+                        </p>
+                      </blockquote>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

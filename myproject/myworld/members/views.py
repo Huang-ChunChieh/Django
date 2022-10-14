@@ -51,3 +51,7 @@ def day_ten(request):
 
 def day_eleven(request):
     return render(request, "day11.html")  # 回傳template
+
+
+def day_sixteen(request):
+    return render(request, "day16.html")  # 回傳template
