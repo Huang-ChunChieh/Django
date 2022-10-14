@@ -1,3 +1,4 @@
+from re import template
 from django.http import HttpResponse, HttpResponseRedirect
 # HttpResponseRedirect是HttpResponse的subclass，用來做路徑的重新導向
 from django.shortcuts import render  # import 需要的套件
@@ -49,6 +50,36 @@ def delete(request, id):
     # 3.Django的資料庫操作採用的是ORM，所以這邊可以直接使用映射物件自帶的delete方法去刪除資料表上的紀錄(Record)
     return HttpResponseRedirect(reverse('index'))
     # 4.刪除資料後跳轉回原先呈現表格資料的index.html頁面
+
+
+def update(request, id):  # 1. members/urls.py使用帶有參數的path，所以方法update的參數包含request和id。
+    mymember = Members.objects.get(id=id)
+    # 2. 把特定id的資料表紀錄(Record)拿出來放到mymember裡面。
+    template = loader.get_template('update.html')
+    # 3. 載入update.html為要顯示在瀏覽器畫面的template
+    context = {  # 4. context採key-value的形式，它是要傳入template(update.html) 的資料，這裡把剛剛拿到的資料表紀錄放進去。
+        'mymember': mymember,
+    }
+    return HttpResponse(template.render(context, request))
+    # 5. 將資料(context)傳入template(update.html)，然後把網頁渲染到瀏覽器的畫面上。
+
+
+def updaterecord(request, id):
+    # 1.path本身帶有參數的關係，所以在urls.py裡面，updaterecord方法實際會以updaterecord(request,id)的形式被呼叫。
+    first = request.POST['first']
+    # 2. 送出表單所產生的HttpRequest(即request)物件的POST屬性取得資料值，
+    #    POST它是Key-Value的形式，這也是為什麼這邊要用request.POST['first']的形式去取得表單上name=first那欄的資料。
+    last = request.POST['last']  # 3. 同上，取得表單上name=last那欄的資料
+    member = Members.objects.get(id=id)
+    # 4. 以獨一無二的id值將要更新的資料表資料(Record)抓出來。
+    member.firstname = first
+    # 5. 使用類似物件導向的方式指定資料的firstname欄位要更新的值(即first)。
+    member.lastname = last
+    # 6. 使用類似物件導向的方式指定資料的lastname欄位要更新的值(即last)。
+    member.save()
+    # 7. 將這次對資料(Record)的修改存到資料表，也就是更新資料表資料。
+    return HttpResponseRedirect(reverse('index'))
+    # 8. 透過reverse('index')找到別名為index的path，再藉著HttpResponseRedirect將頁面重新導向指定路徑(即最初的資料表格頁面)。
 
 
 def home(request):

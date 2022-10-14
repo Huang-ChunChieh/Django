@@ -7,6 +7,8 @@
     <td>{{ x.id }}</td>
     <td>{{ x.firstname }}</td>
     <td>{{ x.lastname }}</td>
+    <td><a href="update/{{ x.id }}">update</a></td>
+    <!--在原始碼的表格新增1欄到更新資料表資料的表單連結，使用帶有參數的非固定連結update/{{ x.id }}-->
     <td><a href="delete/{{ x.id }}">delete</a></td>
   </tr>
   {% endfor %}

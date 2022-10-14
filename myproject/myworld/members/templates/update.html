@@ -1,0 +1,14 @@
+<h1>Update member</h1>
+
+<form action="updaterecord/{{ mymember.id }}" method="post">
+  {% csrf_token %} First Name:<br />
+  <input name="first" value="{{ mymember.firstname }}" />
+  <br /><br />
+  Last Name:<br />
+  <input name="last" value="{{ mymember.lastname }}" />
+  <br /><br />
+  <input type="submit" value="Submit" />
+</form>
+<!--透過views.py裡面的方法取得mymember.id/firstname/lastname資料，
+    將資料表上對應要更新的資料值拿出後傳給update.html(以Context的形式傳入，Key-Value)，
+    資料進入update.html後，可以用類似物件導向的方式存取各個屬性值。-->

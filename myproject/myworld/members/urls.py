@@ -10,8 +10,14 @@ urlpatterns = [
     path('index/add/addrecord/', views.addrecord, name='addrecord'),
     # 設定到index/add/addrecord的路徑，以members/views.py的addrecord處理請求並給定路徑別名addrecord
     path('index/delete/<int:id>', views.delete, name='delete'),
-    # 新格式<int:id>是用來讓path可以攜帶參數，int是參數型別，id是參數名稱。
+    # <int:id>是用來讓path可以攜帶參數，int是參數型別，id是參數名稱。
     # 除新格式外，views.py的delete方法在處理請求時也跟前面不同，delete方法會以delete(request,id)的形式被呼叫，而最後的路徑別名則是跟之前相同沒有改變功能。
+    path('index/update/<int:id>', views.update, name='update'),
+    # <int:id>是用來讓path可以攜帶參數，int是參數型別，id是參數名稱。
+    # views.py的update方法在處理請求時跟以往不同，會以update(request,id)的形式被呼叫，而最後的路徑別名則是跟之前相同沒有改變功能。
+    path('index/update/updaterecord/<int:id>',
+         views.updaterecord, name='updaterecord'),
+    # 需要靠id值來更新資料表上的資料，用帶有參數的path格式。後方負責處理請求的updaterecord方法(view)會以updaterecord(request,id)的形式被呼叫。
     path('index/', views.index, name='index'),
     path('day10/', views.day_ten, name='day_ten'),
     path('day11/', views.day_eleven, name='day_eleven'),
