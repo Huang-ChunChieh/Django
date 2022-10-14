@@ -9,6 +9,9 @@ urlpatterns = [
     # 若有必要在views或templates使用到這個路徑，則可用add代稱。
     path('index/add/addrecord/', views.addrecord, name='addrecord'),
     # 設定到index/add/addrecord的路徑，以members/views.py的addrecord處理請求並給定路徑別名addrecord
+    path('index/delete/<int:id>', views.delete, name='delete'),
+    # 新格式<int:id>是用來讓path可以攜帶參數，int是參數型別，id是參數名稱。
+    # 除新格式外，views.py的delete方法在處理請求時也跟前面不同，delete方法會以delete(request,id)的形式被呼叫，而最後的路徑別名則是跟之前相同沒有改變功能。
     path('index/', views.index, name='index'),
     path('day10/', views.day_ten, name='day_ten'),
     path('day11/', views.day_eleven, name='day_eleven'),

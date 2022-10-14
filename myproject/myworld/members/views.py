@@ -41,6 +41,16 @@ def addrecord(request):
     # reverse('index')可以把它想成path('', views.index, name='index')，也就是新增完資料後跳轉回members/
 
 
+def delete(request, id):
+    # 1.在URLs的部分有說過delete會以delete(request,id)的格式被呼叫，所以這邊才會如此定義該方法
+    member = Members.objects.get(id=id)
+    # 2.Members.objects.get(id=id)被定義在QuerySet下的方法，用來在資料表中尋找符合特定欄位值的紀錄(Record)，這邊在資料表上尋找id相同於點擊刪除資料那列id的紀錄
+    member.delete()
+    # 3.Django的資料庫操作採用的是ORM，所以這邊可以直接使用映射物件自帶的delete方法去刪除資料表上的紀錄(Record)
+    return HttpResponseRedirect(reverse('index'))
+    # 4.刪除資料後跳轉回原先呈現表格資料的index.html頁面
+
+
 def home(request):
     return render(request, "home.html")  # 回傳template
 
