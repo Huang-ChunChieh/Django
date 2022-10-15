@@ -97,6 +97,11 @@ def testing_day21n22(request):
     return HttpResponse(template.render(context, request))
 
 
+def testing_day23(request):
+    template = loader.get_template('testing_day23.html')
+    return HttpResponse(template.render())
+
+
 def home(request):
     return render(request, "home.html")  # 回傳template
 
