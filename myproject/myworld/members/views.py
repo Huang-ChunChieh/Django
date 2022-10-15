@@ -87,9 +87,9 @@ def testing_day20(request):
     return HttpResponse(template.render())
 
 
-def testing_day21(request):
+def testing_day21n22(request):
     mymembers = Members.objects.all().values()
-    template = loader.get_template('testing_day21.html')
+    template = loader.get_template('testing_day21n22.html')
     context = {
         'mymembers': mymembers,
         'emptyObject': [],  # 後面測試For迴圈會用到就順便傳到前端網頁

@@ -1,0 +1,199 @@
+<!--Testing Start-->
+<h1>【Day 21】Django Template Tags 補充篇(2) – For Loop</h1>
+<h2>我們目前的Members資料表裡面的資料如下 :</h2>
+<p>{{ mymembers }}</p>
+<!--Testing End-->
+<h2>Normal For Loop</h2>
+<p>用最原始的For迴圈把資料表的紀錄(Record)從頭到尾逐個拿出來放到表格裡</p>
+<table border="1">
+  {% for x in mymembers %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>Reversed For Loop</h2>
+<p>把資料表的紀錄(Record)從尾到頭的拿出來放到表格裡面。</p>
+<table border="1">
+  {% for x in mymembers reversed %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>Empty Object In For Loop</h2>
+<table border="1">
+  {% for x in emptyObject %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+    {% empty %}
+    <td>None</td>
+    <td>None</td>
+    <td>None</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>For Loop Variable</h2>
+<h3>forloop.counter</h3>
+<p>設置從1開始的計數器(counter)，總共會累加Object個數-1次。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.counter}}</p>
+{% endfor %} {% endwith %}
+<h3>forloop.counter0</h3>
+<p>設置從0開始的計數器(counter)，總共會累加Object個數-1次。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.counter0}}</p>
+{% endfor %} {% endwith %}
+<h3>forloop.first</h3>
+<p>可以用來判斷是否是初次執行迴圈(counter = 1)。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %} {% if forloop.first %}
+<p>First Loop</p>
+{% else %}
+<p>Not First Loop</p>
+{% endif %} {% endfor %} {% endwith %}
+<h3>forloop.last</h3>
+<p>可以用來判斷是否是最後一次執行迴圈(counter = object個數)。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %} {% if forloop.last %}
+<p>Last Loop</p>
+{% else %}
+<p>Not Last Loop</p>
+{% endif %} {% endfor %} {% endwith %}
+<h3>forloop.parentloop</h3>
+<p>有2層以上的For迴圈的話，內迴圈可以用它來取得外迴圈的For Loop Variable。</p>
+{% with Numbers1='12' Numbers2='123' %} {% for x in Numbers1 %} {% for y in
+Numbers2 %}
+<p>
+  Parent loop counter: {{forloop.parentloop.counter}}<br />
+  Loop counter: {{forloop.counter}}
+</p>
+{% endfor %} {% endwith %}
+<h3>forloop.revcounter</h3>
+<p>
+  設置從object個數開始的計數器(counter)，總共會累減Object個數-1次，最後回到1。
+</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.revcounter}}</p>
+{% endfor %} {% endwith %}
+<h3>forloop.revcounter0</h3>
+<p>
+  設置從object個數-1開始的計數器(counter)，總共會累減Object個數-1次，最後回到0。。
+</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.revcounter0}}</p>
+{% endfor %} {% endwith %}
+
+<h1>【Day 22】Django Template Tags 補充篇(3) – Cycle & Comment</h1>
+<h3>Cycles</h3>
+<p>使用cycle讓每次迴圈執行時，都能帶入不同的參數</p>
+<h2>
+  <code class="hljs pgsql"
+    >{% <span class="hljs-keyword">cycle</span>
+    <span class="hljs-string">'lightblue'</span>
+    <span class="hljs-string">'pink'</span>
+    <span class="hljs-string">'yellow'</span>
+    <span class="hljs-string">'coral'</span>
+    <span class="hljs-string">'grey'</span> %}
+  </code>
+</h2>
+<p>
+  在每次的iteration都會帶入不同的顏色參數，如果是第一次執行迴圈就是lightblue，第二次執行就變成pink，之後以此類推，第六次執行迴圈又會從頭開始。
+</p>
+<p>假設我們想要建立一個清單，列出Members資料表所有資料的firstname欄位值，並在迴圈過程分別給它們不同的背景顏色。借助cycle的幫忙，我們可以很輕鬆的完成這件事。</p>
+<ul>
+  {% for x in mymembers %}
+    <li style='background-color:{% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' %}'>
+      {{ x.firstname }}
+    </li>
+  {% endfor %}
+</ul>
+<p>如果只有2個背景顏色輪流變換，則在第3次執行迴圈就又會從頭開始。</p> 
+<ul>
+  {% for x in mymembers %}
+    <li style='background-color:{% cycle 'lightblue' 'pink' %}'>
+      {{ x.firstname }}
+    </li>
+  {% endfor %}
+</ul> 
+<h3>把 Cycle 的參數當成一般的變數使用</h3>
+<p>除了像上面一樣配合CSS屬性使用，我們還可以把要Cycle的顏色參數們當成一般的變數使用。</p>
+<p>把Cycle會輪流帶入的顏色參數們命名成一個bacolor變數，然後再用它來指定背景顏色。</p>
+<ul>
+  {% for x in mymembers %}
+    {% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' as bgcolor %}
+    <li style='background-color:{{ bgcolor }}'>
+      {{ x.firstname }}
+    </li>
+  {% endfor %}
+</ul> 
+<p>嗯，看起來有點奇怪，我們把參數的字串一起顯示出來了，那要怎麼隱藏它們呢? 我們可以在<code class="hljs pgsql"
+  >{% <span class="hljs-string">cycle</span>
+%}</code>再加上1個關鍵字silent，這樣顏色參數文字就消失囉。</p>
+<ul>
+  {% for x in mymembers %}
+    {% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' as bgcolor silent %}
+    <li style='background-color:{{ bgcolor }}'>
+      {{ x.firstname }}
+    </li>
+  {% endfor %}
+</ul> 
+<h3>重新開始 Cycle</h3>
+<p>想要在特定條件下，重新開始用來帶入不同背景顏色參數的Cycle，可以怎麼做呢?</p>
+<p>可以使用%resetcycle%讓顏色參數回到第1個開始往後帶入背景顏色。</p>
+<p>下面我們在第2次執行迴圈的時候，重製整個背景顏色的Cycle，所以在第3次執行迴圈的時候，可以看到顏色又從lightblue開始往下輪流變換。</p>
+<ul>
+  {% for x in mymembers %}
+    {% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' as bgcolor silent %}
+    {% if forloop.counter == 2 %}
+      {% resetcycle %}
+    {% endif %}
+    <li style='background-color:{{ bgcolor }}'>
+      {{ x.firstname }}
+    </li>
+  {% endfor %}
+</ul> 
+<h3>Comment</h3>
+<p>好的註解可以讓維護或更新原始碼更加容易，畢竟寫過的東西，過幾個月再回來，雖然不一定看不懂，但有註解可以更快進入狀況。在使用<code>Django</code>這個<code>Python</code>框架寫網站的時候，也不免俗地會需要使用到註解，而其中有3種註解的寫法格式是一定要會的。</p>
+<ol>
+<li>
+<p>HTML Comment</p>
+<p>單行註解</p>
+<pre><code>&lt;!-- This is a comment --&gt;</code></pre>
+<p>多行註解</p>
+<pre><code>&lt;!--
+  This is
+  a comment
+--&gt;
+</code></pre>
+</li>
+<li>
+<p>Django Template Comment</p>
+<pre><code class="hljs pgsql">{% <span class="hljs-string">comment</span>
+%}</code>到
+<pre><code class="hljs pgsql">{% <span class="hljs-string">endcomment</span>
+  %}</code>
+之間是註解區塊，這個區塊不會顯示在瀏覽器畫面上。</pre>
+<p>如果想在原始碼裡面插入註解的話，可以用下面<code>Short Comment</code>的寫法。</p>
+<pre><code>&lt;h1&gt;Welcome{# This is a short comment #}&lt;/h1&gt;
+</code></pre>
+</li>
+<li>
+<p>Python Comment</p>
+<p>單行註解</p>
+<pre><code># This is a comment
+</code></pre>
+<p>多行註解</p>
+<pre><code>'''
+This
+is
+a
+comment
+'''
+</code></pre>
+</li>
+</ol>
