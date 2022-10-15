@@ -1,0 +1,89 @@
+<!--Testing Start-->
+<h1>DAY 21 Testing For loop</h1>
+<h2>我們目前的Members資料表裡面的資料如下 :</h2>
+<p>{{ mymembers }}</p>
+<!--Testing End-->
+<h2>Normal For Loop</h2>
+<p>用最原始的For迴圈把資料表的紀錄(Record)從頭到尾逐個拿出來放到表格裡</p>
+<table border="1">
+  {% for x in mymembers %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>Reversed For Loop</h2>
+<p>把資料表的紀錄(Record)從尾到頭的拿出來放到表格裡面。</p>
+<table border="1">
+  {% for x in mymembers reversed %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>Empty Object In For Loop</h2>
+<table border="1">
+  {% for x in emptyObject %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+    {% empty %}
+    <td>None</td>
+    <td>None</td>
+    <td>None</td>
+  </tr>
+  {% endfor %}
+</table>
+<h2>For Loop Variable</h2>
+<h3>forloop.counter</h3>
+<p>設置從1開始的計數器(counter)，總共會累加Object個數-1次。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.counter}}</p>
+{% endfor %} {% endwith %}
+<h3>forloop.counter0</h3>
+<p>設置從0開始的計數器(counter)，總共會累加Object個數-1次。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.counter0}}</p>
+{% endfor %} {% endwith %}
+<h3>forloop.first</h3>
+<p>可以用來判斷是否是初次執行迴圈(counter = 1)。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %} {% if forloop.first %}
+<p>First Loop</p>
+{% else %}
+<p>Not First Loop</p>
+{% endif %} {% endfor %} {% endwith %}
+<h3>forloop.last</h3>
+<p>可以用來判斷是否是最後一次執行迴圈(counter = object個數)。</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %} {% if forloop.last %}
+<p>Last Loop</p>
+{% else %}
+<p>Not Last Loop</p>
+{% endif %} {% endfor %} {% endwith %}
+<h3>forloop.parentloop</h3>
+<p>有2層以上的For迴圈的話，內迴圈可以用它來取得外迴圈的For Loop Variable。</p>
+{% with Numbers1='12' Numbers2='123' %} {% for x in Numbers1 %} {% for y in
+Numbers2 %}
+<p>
+  Parent loop counter: {{forloop.parentloop.counter}}<br />
+  Loop counter: {{forloop.counter}}
+</p>
+{% endfor %} {% endwith %}
+<h3>forloop.revcounter</h3>
+<p>
+  設置從object個數開始的計數器(counter)，總共會累減Object個數-1次，最後回到1。
+</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.revcounter}}</p>
+{% endfor %} {% endwith %}
+<h3>forloop.revcounter0</h3>
+<p>
+  設置從object個數-1開始的計數器(counter)，總共會累減Object個數-1次，最後回到0。。
+</p>
+{% with Numbers1='123456'%} {% for x in Numbers1 %}
+<p>Loop counter: {{forloop.revcounter0}}</p>
+{% endfor %} {% endwith %}

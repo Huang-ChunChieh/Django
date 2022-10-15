@@ -82,6 +82,21 @@ def updaterecord(request, id):
     # 8. 透過reverse('index')找到別名為index的path，再藉著HttpResponseRedirect將頁面重新導向指定路徑(即最初的資料表格頁面)。
 
 
+def testing_day20(request):
+    template = loader.get_template('testing_day20.html')
+    return HttpResponse(template.render())
+
+
+def testing_day21(request):
+    mymembers = Members.objects.all().values()
+    template = loader.get_template('testing_day21.html')
+    context = {
+        'mymembers': mymembers,
+        'emptyObject': [],  # 後面測試For迴圈會用到就順便傳到前端網頁
+    }
+    return HttpResponse(template.render(context, request))
+
+
 def home(request):
     return render(request, "home.html")  # 回傳template
 
