@@ -1,0 +1,50 @@
+<h1>DAY23 測試區</h1>
+{% extends 'template.html' %} {% block mymessage %}
+<p>This page has a master page</p>
+<a href="https://ithelp.ithome.com.tw/articles/10305836">
+  【Day 23】Django Template Tags 補充篇(4) - Extends</a
+>
+
+<h1>DAY24_Testing</h1>
+<a href="https://ithelp.ithome.com.tw/articles/10305837">
+  【Day 24】 Django Template Tags 補充篇(5) - Include</a
+>
+<h2>Hello</h2>
+<p>This page contains a footer in a template.</p>
+{% include 'footer.html' with name='Qi Xiang' %}
+
+<h1>DAY25_Testing</h1>
+<a href="https://ithelp.ithome.com.tw/articles/10305838">
+  【Day 25】Django Template Tags 補充篇(6) - Filter</a
+>
+{% with greeting=2 %} {% if greeting == 1 %}
+<h1>Hello</h1>
+{% elif greeting == 2 %}
+<h1>Welcome</h1>
+{% else %}
+<h1>Goodbye</h1>
+{% endif %} {% endwith %}
+<h2>Filter</h2>
+<p>
+  Django Template
+  Tag的Filter用於在實際返回變數前，先針對變數進行修改。在使用Filter的過程中，會很常看到|這個符號，可以把它想像成管道(pipe)，變數經過這個管道後，會產生不同的變化，像是將字串全部轉為大寫。
+</p>
+<h1>直接在變數中使用Filter</h1>
+<h2>單一個Filter(|)</h2>
+{% with firstname='Qi Xiang' %}
+<h1>Hello {{ firstname|upper }}, how are you?</h1>
+{% endwith %}
+
+<h2>複數個Filter(|)</h2>
+{% with firstname='Qi Xiang' %}
+<h1>Hello {{ firstname|first|lower }}, how are you?</h1>
+{% endwith %}
+
+<h1>定義出使用Filter的區塊</h1>
+<h2>單一個Filter(|)</h2>
+{% filter upper %}
+<h1>Hello everyone, how are you?</h1>
+{% endfilter %}
+
+<h2>複數個Filter(|)</h2>
+{% filter upper|linenumbers %}my name is Emil.{% endfilter %} {% endblock %}

@@ -20,7 +20,8 @@ urlpatterns = [
     # 需要靠id值來更新資料表上的資料，用帶有參數的path格式。後方負責處理請求的updaterecord方法(view)會以updaterecord(request,id)的形式被呼叫。
     path('testing_day20/', views.testing_day20, name='testing_day20'),
     path('testing_day21n22/', views.testing_day21n22, name='testing_day21n22'),
-    path('testing_day23/', views.testing_day23, name='testing_day23'),
+    path('testing_day23n24n25/', views.testing_day23n24n25,
+         name='testing_day23n24n25'),
     path('index/', views.index, name='index'),
     path('day10/', views.day_ten, name='day_ten'),
     path('day11/', views.day_eleven, name='day_eleven'),
