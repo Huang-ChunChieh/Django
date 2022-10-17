@@ -102,6 +102,21 @@ def testing_day23n24n25(request):
     return HttpResponse(template.render())
 
 
+def testing_day27(request):
+    QuerySet_Simple = Members.objects.all()
+    QuerySet_Detail = Members.objects.all().values()
+    GetSpecificColumnData = Members.objects.values_list('firstname')
+    GetSpecificRowData = Members.objects.filter(firstname='Lene').values()
+    template = loader.get_template('testing_day27.html')
+    context = {
+        'QuerySet_Simple': QuerySet_Simple,  # 只看得到有幾筆紀錄，但看不到實際資料
+        'QuerySet_Detail': QuerySet_Detail,  # 看得到有幾筆紀錄和實際資料
+        'SpecificColumnData': GetSpecificColumnData,
+        'SpecificRowData': GetSpecificRowData,
+    }
+    return HttpResponse(template.render(context, request))
+
+
 def day26(request):
     template = loader.get_template('day26.html')
     return HttpResponse(template.render())

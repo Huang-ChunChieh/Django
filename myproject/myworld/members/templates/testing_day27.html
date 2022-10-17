@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Get Data</h1>
+    <p>{{ QuerySet_Simple }}</p>
+    <p>單純的資料紀錄-看得到有幾筆紀錄，但看不到實際資料</p>
+    <p>{{ QuerySet_Detail }}</p>
+    <p>完整的資料紀錄-看得到有幾筆紀錄和實際資料</p>
+
+    <h1>Get Specific Column Data</h1>
+    <p>The queryset object:</p>
+    {{ SpecificColumnData }}
+    <p>Loop through the items:</p>
+
+    <table border="1">
+      {% for x in SpecificColumnData %}
+      <tr>
+        <td>{{ x.0 }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h1>Get Specific Row Data</h1>
+    <p>The queryset object:</p>
+
+    {{ SpecificRowData }}
+
+    <p>Loop through the items:</p>
+
+    <table border="1">
+      {% for x in SpecificRowData %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
