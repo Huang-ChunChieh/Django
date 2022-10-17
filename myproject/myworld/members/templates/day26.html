@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>
+      【Day 26】 Django 客製化 404 頁面 - iT 邦幫忙::一起幫忙解決難題，拯救 IT
+      人的一天
+    </title>
+
+    <meta
+      name="description"
+      content="今天要來介紹如何客製化404頁面，會進到404的頁面是因為嘗試訪問不存在的頁面(輸入錯誤的網址)。目前我們在啟動Server後，如果在瀏覽器輸入錯誤的網址，去嘗試訪問不存在的頁面，則會看到像下面這樣用..."
+    />
+    <meta name="keywords" content="iT邦幫忙,iThome" />
+    <meta name="author" content="iThome" />
+    <meta
+      property="og:site_name"
+      content="iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"
+    />
+    <meta
+      property="og:url"
+      content="https://ithelp.ithome.com.tw/articles/10305839"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="【Day 26】 Django 客製化 404 頁面 - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天"
+    />
+    <meta property="og:image" content="https://i.imgur.com/6MloEn3.png" />
+    <meta
+      property="og:description"
+      content="今天要來介紹如何客製化404頁面，會進到404的頁面是因為嘗試訪問不存在的頁面(輸入錯誤的網址)。目前我們在啟動Server後，如果在瀏覽器輸入錯誤的網址，去嘗試訪問不存在的頁面，則會看到像下面這樣用..."
+    />
+    <meta property="fb:app_id" content="137875859607921" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://ithelp.ithome.com.tw/storage/favicons/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/android-chrome-192x192.png"
+      sizes="192x192"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://ithelp.ithome.com.tw/storage/favicons/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link
+      rel="manifest"
+      href="https://ithelp.ithome.com.tw/storage/favicons/manifest.json"
+    />
+    <link
+      rel="mask-icon"
+      href="https://ithelp.ithome.com.tw/storage/favicons/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta
+      name="msapplication-TileImage"
+      content="https://ithelp.ithome.com.tw/storage/favicons/mstile-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/sweetalert.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/lib/select2/css/select2.min.css"
+    />
+    <link rel="stylesheet" href="https://ithelp.ithome.com.tw/css/google.css" />
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/style.css?202008271142"
+    />
+    <!-- highlight -->
+    <link
+      rel="stylesheet"
+      href="https://ithelp.ithome.com.tw/css/railscasts.css"
+    />
+    <!-- end -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--messenger css-->
+  </head>
+
+  <body>
+    <div class="container index-top">
+      <div class="row">
+        <div class="col-md-12 clearfix">
+          <div class="leftside">
+            <div class="qa-panel clearfix">
+              <div class="ir-article__days ir-article__days--web">
+                <div class="ir-article__days-word">
+                  DAY <span class="ir-article__days-num"> 26 </span>
+                </div>
+              </div>
+              <div class="qa-panel__content">
+                <div class="qa-header">
+                  <h2 class="qa-header__title ir-article__title">
+                    【Day 26】 Django 客製化 404 頁面
+                  </h2>
+                </div>
+
+                <div class="qa-markdown">
+                  <div class="markdown">
+                    <div class="markdown__style">
+                      <p>
+                        今天要來介紹如何客製化<code>404</code>頁面，會進到<code>404</code>的頁面是因為嘗試訪問不存在的頁面(輸入錯誤的網址)。目前我們在啟動<code>Server</code>後，如果在瀏覽器輸入錯誤的網址，去嘗試訪問不存在的頁面，則會看到像下面這樣用來提示錯誤在哪的<code>Debug</code>頁面而非單純的<code>404</code>頁面。
+                      </p>
+                      <p>(輸入錯誤的網址)</p>
+                      <p>
+                        <img src="https://i.imgur.com/6MloEn3.png" alt="" />
+                      </p>
+                      <p>
+                        那要怎麼在網址錯誤的時候，進到<code>404</code>頁面而不是<code>Debug</code>頁面呢?
+                        上面的圖片其實有答案，因為<code>Django</code>本身有<code>Debug</code>功能，而且預設是開啟的，所以我們才會在出現錯誤的時候看到<code>Debug</code>頁面。
+                      </p>
+                      <p>
+                        想要關閉<code>Debug</code>功能的話，我們需要到<code>myworld</code>資料夾下面找到名為<code>settings.py</code>的檔案，它掌管網站的所有設定。
+                      </p>
+                      <p>
+                        <img src="https://i.imgur.com/cxbi8X4.png" alt="" />
+                      </p>
+                      <p>
+                        找到<code>settings.py</code>後，可以在檔案裡面找到<code>Debug</code>的設定，而且它預設是<code>True</code>，我們只要把它改成<code>False</code>就可以關閉<code>Debug</code>功能。
+                      </p>
+                      <p>
+                        <img src="https://i.imgur.com/cJ22TJf.png" alt="" />
+                      </p>
+                      <p>
+                        把<code>Debug</code>功能關閉後，我們需要設定允許存取的主機位置(<code>ALLOWED_HOSTS</code>)，不然會有錯誤，因為都是在本機上操作<code
+                          >Django Project</code
+                        >，所以我們先在<code>settings.py</code>裡面，找到<code>ALLOWED_HOSTS</code>這個串列(<code>List</code>)，然後把本機位置<code>127.0.0.1</code>放進去。
+                      </p>
+                      <p>
+                        <img src="https://i.imgur.com/I3EzgWR.png" alt="" />
+                      </p>
+                      <p>
+                        修改結束後，啟動<code>Server</code>並在瀏覽器輸入錯誤的網址，就會發現真的進到<code>404</code>頁面囉。
+                      </p>
+                      <p>
+                        <img src="https://i.imgur.com/TAfmWnh.png" alt="" />
+                      </p>
+                      <p>
+                        最後，要怎麼把<code>404</code>頁面改成我們需要的樣子呢?
+                        <code>Django</code
+                        >會在輸入錯誤網址後，主動到<code>templates</code>資料夾尋找是否有名為<code>404.html</code>的檔案，如果檔案存在，就會在瀏覽器上看到它，如果檔案不存在，則會看到像上面一樣的預設頁面。
+                      </p>
+                      <p>
+                        所以在客製化<code>404</code>頁面前，我們需要到<code>templates</code>資料夾下，新增1個名為<code>404.html</code>的檔案。
+                      </p>
+                      <p>
+                        <img src="https://i.imgur.com/Hfj1QyY.png" alt="" />
+                      </p>
+                      <p>
+                        新增完後，我們只要編輯<code>404.html</code>的檔案，就可以開始各種客製化頁面設定囉!
+                        現在把檔案內容改成下面這樣。
+                      </p>
+                      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;title&gt;Wrong address&lt;/title&gt;
+&lt;body&gt;
+
+&lt;h1&gt;404 Not Found&lt;/h1&gt;
+
+&lt;h2&gt;Life is a circle ❤️ Trust the process&lt;/h2&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                      <p>
+                        可以看到<code>404</code>頁面變成我們想要的樣子囉!
+                        當然也可以搭配使用<code>CSS</code>或<code>JavaScript</code>等，讓<code>404</code>頁面看起來不那麼單調。
+                      </p>
+                      <p>
+                        <img src="https://i.imgur.com/r8GA0tG.png" alt="" />
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
