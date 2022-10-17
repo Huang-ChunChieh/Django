@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Filter</h1>
+    <h2>1. 單一條件的篩選</h2>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in SingleCondition %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>2. 複數條件的篩選</h2>
+    <h3>透過格式實現And的條件篩選</h3>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in MultipleConditionWithAnd %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h3>透過格式實現Or的條件篩選</h3>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in MultipleConditionWithOr %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>3. 預設的條件篩選方法</h2>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in PresetConditionalFilter %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h1>Order By</h1>
+    <h2>單一欄位遞增排序</h2>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in OrderBySingleColumnAscending %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>單一欄位遞減排序</h2>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in OrderBySingleColumnDescending %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>複數欄位排序(遞增或遞減)</h2>
+    <table border="1">
+      <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+      </tr>
+      {% for x in SortingOfPluralFields %}
+      <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

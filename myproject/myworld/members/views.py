@@ -117,6 +117,30 @@ def testing_day27(request):
     return HttpResponse(template.render(context, request))
 
 
+def testing_day28(request):
+    filterByASingleCondition = Members.objects.filter(
+        firstname='jay').values()
+    filterByMultipleConditionWithAnd = Members.objects.filter(
+        lastname='jay', id='8').values()
+    filterByMultipleConditionWithOr = Members.objects.filter(lastname='jay').values(
+    ) | Members.objects.filter(id='2').values()
+    presetConditionalFilter = Members.objects.filter(firstname__startswith='L')
+    orderBySingleColumnAscending = Members.objects.all().order_by('firstname').values()
+    orderBySingleColumnDescending = Members.objects.all().order_by('-firstname').values()
+    sortingOfPluralFields = Members.objects.all().order_by('firstname', '-id').values()
+    template = loader.get_template('testing_day28.html')
+    context = {
+        'SingleCondition': filterByASingleCondition,
+        'MultipleConditionWithAnd': filterByMultipleConditionWithAnd,
+        'MultipleConditionWithOr': filterByMultipleConditionWithOr,
+        'PresetConditionalFilter': presetConditionalFilter,
+        'OrderBySingleColumnAscending': orderBySingleColumnAscending,
+        'OrderBySingleColumnDescending': orderBySingleColumnDescending,
+        'SortingOfPluralFields': sortingOfPluralFields,
+    }
+    return HttpResponse(template.render(context, request))
+
+
 def day26(request):
     template = loader.get_template('day26.html')
     return HttpResponse(template.render())
