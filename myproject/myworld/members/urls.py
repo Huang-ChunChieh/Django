@@ -25,6 +25,7 @@ urlpatterns = [
     path('day26/', views.day26, name='day26'),
     path('testing_day27/', views.testing_day27, name='testing_day27'),
     path('testing_day28/', views.testing_day28, name='testing_day28'),
+    path('day29/', views.day29, name='day29'),
     path('index/', views.index, name='index'),
     path('day10/', views.day_ten, name='day_ten'),
     path('day11/', views.day_eleven, name='day_eleven'),

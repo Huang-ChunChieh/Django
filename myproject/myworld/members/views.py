@@ -146,6 +146,11 @@ def day26(request):
     return HttpResponse(template.render())
 
 
+def day29(request):
+    template = loader.get_template('day29.html')
+    return HttpResponse(template.render())
+
+
 def home(request):
     return render(request, "home.html")  # 回傳template
 
